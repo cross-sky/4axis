@@ -5,7 +5,7 @@
 
 
 void TimerNvIC_Configuration(void);
-
+void TIM_Init(void);
 
 #endif
 

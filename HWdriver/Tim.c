@@ -34,7 +34,7 @@ void TIM4_Init(uint8_t clock, uint16_t period)
 	RCC_APB1PeriphClockCmd(RCC_APB1Periph_TIM4, ENABLE);
 	TIM_DeInit(TIM4);
 
-	tim_times.TIM_Period = period;  //自动重载 ARR
+	tim_times.TIM_Period = period -1;  //自动重载 ARR
 	tim_times.TIM_Prescaler = clock - 1; // psc
 	tim_times.TIM_ClockDivision = TIM_CKD_DIV1;
 	tim_times.TIM_CounterMode = TIM_CounterMode_Up;
@@ -56,7 +56,7 @@ void TIM3_Init(uint8_t clock, uint16_t period)
 
 	tim_times.TIM_Period = period;  //自动重载 ARR
 	tim_times.TIM_Prescaler = clock - 1; // psc
-	tim_times.TIM_ClockDivision = TIM_CKD_DIV1;
+	tim_times.TIM_ClockDivision = TIM_CKD_DIV1;//时钟分割?在未分频之前根据要求建立新的分频器，确定定时器，确定一定的延时时间
 	tim_times.TIM_CounterMode = TIM_CounterMode_Up;
 
 	TIM_TimeBaseInit(TIM3, &tim_times);
@@ -65,5 +65,12 @@ void TIM3_Init(uint8_t clock, uint16_t period)
 	TIM_ITConfig(TIM3, TIM_IT_Update, ENABLE);
 	TIM_Cmd(TIM3, ENABLE);
 	printf("tim3 begian...\r\n");
+}
+
+void TIM_Init(void)
+{
+	TIM3_Init(72, 1000);
+	TIM4_Init(72, 1000);
+
 }
 

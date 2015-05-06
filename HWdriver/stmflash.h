@@ -24,8 +24,8 @@ typedef enum {
 }FLASH_FLAG ;
 
 
-uint8_t FLASH_Write(uint16_t *memory);
-uint8_t FLASH_READ(uint16_t *memory, uint16_t num);
+uint8_t FLASH_Write(uint32_t writeAddr,uint16_t *memory,uint16_t num);
+uint8_t FLASH_READ( uint32_t readAddr,uint16_t *memory, uint16_t num);
 
 #endif
 

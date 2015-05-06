@@ -8,6 +8,9 @@
 #include <stdio.h>
 #include "Tim.h"
 #include "stmflash.h"
+#include "configTable.h"
+#include "control.h"
+#include "moto.h"
 
 
 #endif

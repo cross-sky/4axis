@@ -29,19 +29,20 @@ uint8_t STMFLASH_GetStatus(void)
 	
 }
 
-uint8_t FLASH_Write(uint16_t *memory)
+//÷ª–¥»Î1“≥
+uint8_t FLASH_Write(uint32_t writeAddr,uint16_t *memory,uint16_t num)
 {
-	uint16_t t, count=0;
+	uint16_t  count=0;
 	RCC_HSICmd(ENABLE);
 	FLASH_Unlock();
 	FLASH_ClearFlag(FLASH_FLAG_EOP|FLASH_FLAG_PGERR|FLASH_FLAG_WRPRTERR);
-	FLASH_ErasePage(STM32_FLASH_START);
-	t = sizeof((const char *)memory);
-	while(count <= t)
+	FLASH_ErasePage(writeAddr);
+//	t = sizeof((const char *)memory);
+	while(count <= num)
 	{
-		FLASH_ProgramHalfWord((STM32_FLASH_START + count*2),*(memory+count));
+		FLASH_ProgramHalfWord((writeAddr + count*2),*(memory+count));
 		
-		if(count > t)
+		if(count > num)
 		{
 			FLASHstatus = FLASH_WRIKE_NO;
 			return FLASHstatus;
@@ -54,12 +55,12 @@ uint8_t FLASH_Write(uint16_t *memory)
 	return FLASHstatus;
 }
 
-uint8_t FLASH_READ(uint16_t *memory, uint16_t num)
+uint8_t FLASH_READ( uint32_t readAddr,uint16_t *memory, uint16_t num)
 {
 	uint16_t count=0;
 	while(count < num)
 	{
-		*(memory+count) = *(uint16_t *)(STM32_FLASH_START + count*2);
+		*(memory+count) = *(uint16_t *)(readAddr + count*2);
 		printf("flash data %d",*(memory+count));
 		
 		if(count > num)
