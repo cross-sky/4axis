@@ -46,6 +46,9 @@ void PendSV_Handler(void);
 void SysTick_Handler(void);
 uint8_t cycleCounter(void);
 
+uint32_t millis(void);
+uint32_t micros(void);
+
 #ifdef __cplusplus
 }
 #endif

@@ -1,6 +1,8 @@
 #ifndef __CONFIG_H
 #define __CONFIG_H
 
+
+
 #include "stm32f10x_conf.h"
 #include "stm32f10x.h"
 #include "stm32f10x_it.h"
@@ -11,6 +13,11 @@
 #include "configTable.h"
 #include "control.h"
 #include "moto.h"
+#include "battery.h"
+#include "iic_polling.h"
+#include "delay.h"
+#include "mpu6050.h"
+#include "hmc5883l.h"
 
 
 #endif

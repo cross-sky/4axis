@@ -8,14 +8,14 @@ void TimerNvIC_Configuration(void)
 	NVIC_InitTypeDef nvic_inits;
 
 	nvic_inits.NVIC_IRQChannel = TIM3_IRQn;
-	nvic_inits.NVIC_IRQChannelPreemptionPriority = 1; //定时器3作为串口打印定时器，优先级低于姿态解算
-	nvic_inits.NVIC_IRQChannelSubPriority = 0;
+	nvic_inits.NVIC_IRQChannelPreemptionPriority = 2; //定时器3作为串口打印定时器，优先级低于姿态解算
+	nvic_inits.NVIC_IRQChannelSubPriority = 1;
 	nvic_inits.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&nvic_inits);
 
 	nvic_inits.NVIC_IRQChannel = TIM4_IRQn;
-	nvic_inits.NVIC_IRQChannelPreemptionPriority = 0;// //定时器4作为姿态解算，优先级高于串口打印
-	nvic_inits.NVIC_IRQChannelSubPriority = 0;
+	nvic_inits.NVIC_IRQChannelPreemptionPriority = 2;// //定时器4作为姿态解算，优先级高于串口打印
+	nvic_inits.NVIC_IRQChannelSubPriority = 2;
 	nvic_inits.NVIC_IRQChannelCmd = ENABLE;
 	NVIC_Init(&nvic_inits);
 }

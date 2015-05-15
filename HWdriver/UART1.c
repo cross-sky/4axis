@@ -67,12 +67,12 @@ void UART1_Init(uint32_t bound)
 	USART_Init(USARTy, &usart_inits);
 	//第2组：最高2位用于指定抢占式优先级-PreemptionPriority，最低2位用于指定响应优先级-SubPriority
 	//“组”优先级别>“抢”占优先级别>“副”优先级别
-	//数值越小所代表的优先级就越高
+	//数值越小所代表的优先级就越高,有必要设置组0
 	NVIC_PriorityGroupConfig(NVIC_PriorityGroup_2);
 
 	nvic_inits.NVIC_IRQChannel = USARTy_IRQn;
-	nvic_inits.NVIC_IRQChannelPreemptionPriority = 1;
-	nvic_inits.NVIC_IRQChannelSubPriority = 1;
+	nvic_inits.NVIC_IRQChannelPreemptionPriority = 3;
+	nvic_inits.NVIC_IRQChannelSubPriority = 0;
 	nvic_inits.NVIC_IRQChannelCmd = ENABLE; 
 	NVIC_Init(&nvic_inits);
 
@@ -142,7 +142,7 @@ void UartSendBuffer(uint8_t *dat, uint8_t len)
 		UartBuf_WD(&UartTxbuf, *dat);
 		dat++;
 	}
-	USART_ITConfig(USARTy, USART_IT_TXE, ENABLE);
+	USART_ITConfig(USARTy, USART_IT_TXE, ENABLE);//
 }
 
 volatile uint8_t UdataTemp;//串口接收临时数据字节

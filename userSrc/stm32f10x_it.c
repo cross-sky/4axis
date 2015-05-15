@@ -26,7 +26,9 @@
 
 
 static volatile uint32_t usTicks = 0;
+volatile uint32_t sysTickUptime = 0;
 
+extern void SysTickHandler(void);
 /** @addtogroup STM32F10x_StdPeriph_Template;
 =======
 extern void time_delay_decrement( void );*/
@@ -142,6 +144,8 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
 //	TPCRemarks(TaskComps);
+	SysTickHandler();
+	sysTickUptime++;
 }
 
 uint8_t cycleCounter(void)
@@ -152,6 +156,24 @@ uint8_t cycleCounter(void)
 
 }
 
+//return system uptime in microseconds
+uint32_t micros(void)
+{
+	register uint32_t ms, cycle_cnt;
+	do 
+	{
+		ms = sysTickUptime;
+		cycle_cnt = SysTick->VAL;
+	} while (ms != sysTickUptime);
+
+	return ms * 1000 + (72000 - cycle_cnt)/72;
+}
+
+//return system uptime in milliseconds
+uint32_t millis(void)
+{
+	return sysTickUptime;
+}
 void EXTI9_5_IRQHandler(void)
 {					////确保是否产生了EXTI Line中断.;	
 // 	if ( EXTI_GetITStatus( EXTI_Line7 ) != RESET )
