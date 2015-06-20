@@ -23,6 +23,8 @@ int main(void)
 	Mpu6050Init();
 	MPU6050TestConnection();
 	HMC5883_Init();
+	NRF24L01_Init();
+
 
 	while (1)
 	{

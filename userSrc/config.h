@@ -18,7 +18,8 @@
 #include "delay.h"
 #include "mpu6050.h"
 #include "hmc5883l.h"
-
+#include "spi.h"
+#include "nrf24l01.h"
 
 #endif
 
